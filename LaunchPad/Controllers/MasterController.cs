@@ -27,7 +27,7 @@ namespace LaunchPad.Controllers
         public List<MasterData> GetMaster()
         {
             var returnset = new List<MasterData>();
-            var result= db.tbl_Master.Take(10);
+            var result= db.tbl_Master.Take(100);
             foreach(var row in result)
             {
                 returnset.Add(ConvertToView(row));
