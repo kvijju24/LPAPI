@@ -26,5 +26,6 @@ namespace LaunchPad.Data
         }
     
         public virtual DbSet<tbl_Master> tbl_Master { get; set; }
+        public virtual DbSet<Sync_Appointments> Sync_Appointments { get; set; }
     }
 }

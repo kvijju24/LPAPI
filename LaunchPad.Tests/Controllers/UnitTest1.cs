@@ -6,19 +6,47 @@ namespace LaunchPad.Tests.Controllers
     [TestClass]
     public class UnitTest1
     {
+        //[TestMethod]
+        //public void Get()
+        //{
+        //    // Arrange
+        //    var controller = new AppointmentController();
+
+        //    // Act
+        //    var result = controller.GetAppointment();
+
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //    // Assert.AreEqual(1000, result.Count());
+
+        //}
         [TestMethod]
-        public void Get()
+        public void Getcode()
         {
             // Arrange
-            MasterController controller = new MasterController();
+            var controller = new AppointmentController();
 
             // Act
-            var result = controller.GetMaster();
+            var result = controller.GetAppointmentCode();
 
             // Assert
             Assert.IsNotNull(result);
-           // Assert.AreEqual(1000, result.Count());
+            // Assert.AreEqual(1000, result.Count());
 
         }
+        //[TestMethod]
+        //public void GetMaster()
+        //{
+        //    // Arrange
+        //    var controller = new MasterController();
+
+        //    // Act
+        //    var result = controller.GetMaster();
+
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //    // Assert.AreEqual(1000, result.Count());
+
+        //}
     }
 }

@@ -5,6 +5,64 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Sync_Appointments">
+          <Key>
+            <PropertyRef Name="Native_ID" />
+          </Key>
+          <Property Name="Native_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Native_UpdateDt" Type="datetime" />
+          <Property Name="Native_ImportDt" Type="datetime" />
+          <Property Name="Sync_UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="Sync_FolderPath" Type="varchar" MaxLength="100" />
+          <Property Name="Sync_IsDeleted" Type="bit" />
+          <Property Name="Sync_ServerLastModified" Type="datetime" />
+          <Property Name="Sync_ToServerDt" Type="datetime" />
+          <Property Name="Sync_FromServerDt" Type="datetime" />
+          <Property Name="Sync_ServerResult" Type="int" />
+          <Property Name="Sync_ServerChangeType" Type="int" />
+          <Property Name="Sync_ID" Type="varchar" MaxLength="300" />
+          <Property Name="Sync_Error" Type="text" />
+          <Property Name="Sync_Apt_Attendees" Type="text" />
+          <Property Name="Sync_Apt_IsOrganizer" Type="bit" />
+          <Property Name="Sync_Apt_ShouldSend" Type="bit" />
+          <Property Name="Sync_Apt_OccuranceMaster" Type="varchar" MaxLength="300" />
+          <Property Name="Sync_Apt_OccuranceIndex" Type="int" />
+          <Property Name="Sync_Apt_OccuranceCount" Type="int" />
+          <Property Name="IsMeeting" Type="bit" />
+          <Property Name="IsCancelled" Type="bit" />
+          <Property Name="IsRecurring" Type="bit" />
+          <Property Name="Recurrence" Type="text" />
+          <Property Name="FirstOccurrence" Type="text" />
+          <Property Name="LastOccurrence" Type="text" />
+          <Property Name="StartTimeZone" Type="varchar" MaxLength="40" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="End" Type="datetime" />
+          <Property Name="IsAllDayEvent" Type="bit" />
+          <Property Name="Location" Type="text" />
+          <Property Name="Sensitivity" Type="text" />
+          <Property Name="AppointmentType" Type="text" />
+          <Property Name="AppointmentState" Type="int" />
+          <Property Name="LastModifiedName" Type="text" />
+          <Property Name="MyResponseType" Type="text" />
+          <Property Name="ReminderMinutesBeforeStart" Type="int" />
+          <Property Name="Organizer" Type="text" />
+          <Property Name="RequiredAttendees" Type="text" />
+          <Property Name="OptionalAttendees" Type="text" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="TimeZone" Type="text" />
+          <Property Name="ICalUid" Type="text" />
+          <Property Name="Id" Type="text" />
+          <Property Name="Body" Type="text" />
+          <Property Name="Subject" Type="text" />
+          <Property Name="Categories" Type="text" />
+          <Property Name="Importance" Type="text" />
+          <Property Name="DateTimeCreated" Type="datetime" />
+          <Property Name="LastModifiedTime" Type="datetime" />
+          <Property Name="UniqueBody" Type="text" />
+          <Property Name="StoreEntryId" Type="image" />
+          <Property Name="TextBody" Type="text" />
+          <Property Name="Launchpad_ID" Type="int" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ES.dbo.tbl_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_Master">
@@ -143,6 +201,7 @@ warning 6002: The table/view 'ES.dbo.tbl_Master' does not have a primary key def
           <Property Name="company_detail_xml_url" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityContainer Name="ESModelStoreContainer">
+          <EntitySet Name="Sync_Appointments" EntityType="Self.Sync_Appointments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Master" EntityType="Self.tbl_Master" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbl_Master].[master_id] AS [master_id], 
@@ -284,6 +343,7 @@ warning 6002: The table/view 'ES.dbo.tbl_Master' does not have a primary key def
       <Schema Namespace="ESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ESEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="tbl_Master" EntityType="ESModel.tbl_Master" />
+          <EntitySet Name="Sync_Appointments" EntityType="ESModel.Sync_Appointments" />
         </EntityContainer>
         <EntityType Name="tbl_Master">
           <Key>
@@ -419,6 +479,64 @@ warning 6002: The table/view 'ES.dbo.tbl_Master' does not have a primary key def
           <Property Name="url2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="zoom_company_url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="company_detail_xml_url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sync_Appointments">
+          <Key>
+            <PropertyRef Name="Native_ID" />
+          </Key>
+          <Property Name="Native_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Native_UpdateDt" Type="DateTime" Precision="3" />
+          <Property Name="Native_ImportDt" Type="DateTime" Precision="3" />
+          <Property Name="Sync_UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_FolderPath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_IsDeleted" Type="Boolean" />
+          <Property Name="Sync_ServerLastModified" Type="DateTime" Precision="3" />
+          <Property Name="Sync_ToServerDt" Type="DateTime" Precision="3" />
+          <Property Name="Sync_FromServerDt" Type="DateTime" Precision="3" />
+          <Property Name="Sync_ServerResult" Type="Int32" />
+          <Property Name="Sync_ServerChangeType" Type="Int32" />
+          <Property Name="Sync_ID" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_Error" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_Apt_Attendees" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_Apt_IsOrganizer" Type="Boolean" />
+          <Property Name="Sync_Apt_ShouldSend" Type="Boolean" />
+          <Property Name="Sync_Apt_OccuranceMaster" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Sync_Apt_OccuranceIndex" Type="Int32" />
+          <Property Name="Sync_Apt_OccuranceCount" Type="Int32" />
+          <Property Name="IsMeeting" Type="Boolean" />
+          <Property Name="IsCancelled" Type="Boolean" />
+          <Property Name="IsRecurring" Type="Boolean" />
+          <Property Name="Recurrence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirstOccurrence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastOccurrence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StartTimeZone" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="End" Type="DateTime" Precision="3" />
+          <Property Name="IsAllDayEvent" Type="Boolean" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sensitivity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AppointmentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AppointmentState" Type="Int32" />
+          <Property Name="LastModifiedName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MyResponseType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReminderMinutesBeforeStart" Type="Int32" />
+          <Property Name="Organizer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredAttendees" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OptionalAttendees" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="TimeZone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ICalUid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Categories" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Importance" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateTimeCreated" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+          <Property Name="UniqueBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StoreEntryId" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TextBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Launchpad_ID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -559,6 +677,65 @@ warning 6002: The table/view 'ES.dbo.tbl_Master' does not have a primary key def
                 <ScalarProperty Name="company_name" ColumnName="company_name" />
                 <ScalarProperty Name="contact_name" ColumnName="contact_name" />
                 <ScalarProperty Name="master_id" ColumnName="master_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sync_Appointments">
+            <EntityTypeMapping TypeName="ESModel.Sync_Appointments">
+              <MappingFragment StoreEntitySet="Sync_Appointments">
+                <ScalarProperty Name="Launchpad_ID" ColumnName="Launchpad_ID" />
+                <ScalarProperty Name="TextBody" ColumnName="TextBody" />
+                <ScalarProperty Name="StoreEntryId" ColumnName="StoreEntryId" />
+                <ScalarProperty Name="UniqueBody" ColumnName="UniqueBody" />
+                <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+                <ScalarProperty Name="DateTimeCreated" ColumnName="DateTimeCreated" />
+                <ScalarProperty Name="Importance" ColumnName="Importance" />
+                <ScalarProperty Name="Categories" ColumnName="Categories" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ICalUid" ColumnName="ICalUid" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="OptionalAttendees" ColumnName="OptionalAttendees" />
+                <ScalarProperty Name="RequiredAttendees" ColumnName="RequiredAttendees" />
+                <ScalarProperty Name="Organizer" ColumnName="Organizer" />
+                <ScalarProperty Name="ReminderMinutesBeforeStart" ColumnName="ReminderMinutesBeforeStart" />
+                <ScalarProperty Name="MyResponseType" ColumnName="MyResponseType" />
+                <ScalarProperty Name="LastModifiedName" ColumnName="LastModifiedName" />
+                <ScalarProperty Name="AppointmentState" ColumnName="AppointmentState" />
+                <ScalarProperty Name="AppointmentType" ColumnName="AppointmentType" />
+                <ScalarProperty Name="Sensitivity" ColumnName="Sensitivity" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="IsAllDayEvent" ColumnName="IsAllDayEvent" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="StartTimeZone" ColumnName="StartTimeZone" />
+                <ScalarProperty Name="LastOccurrence" ColumnName="LastOccurrence" />
+                <ScalarProperty Name="FirstOccurrence" ColumnName="FirstOccurrence" />
+                <ScalarProperty Name="Recurrence" ColumnName="Recurrence" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="IsMeeting" ColumnName="IsMeeting" />
+                <ScalarProperty Name="Sync_Apt_OccuranceCount" ColumnName="Sync_Apt_OccuranceCount" />
+                <ScalarProperty Name="Sync_Apt_OccuranceIndex" ColumnName="Sync_Apt_OccuranceIndex" />
+                <ScalarProperty Name="Sync_Apt_OccuranceMaster" ColumnName="Sync_Apt_OccuranceMaster" />
+                <ScalarProperty Name="Sync_Apt_ShouldSend" ColumnName="Sync_Apt_ShouldSend" />
+                <ScalarProperty Name="Sync_Apt_IsOrganizer" ColumnName="Sync_Apt_IsOrganizer" />
+                <ScalarProperty Name="Sync_Apt_Attendees" ColumnName="Sync_Apt_Attendees" />
+                <ScalarProperty Name="Sync_Error" ColumnName="Sync_Error" />
+                <ScalarProperty Name="Sync_ID" ColumnName="Sync_ID" />
+                <ScalarProperty Name="Sync_ServerChangeType" ColumnName="Sync_ServerChangeType" />
+                <ScalarProperty Name="Sync_ServerResult" ColumnName="Sync_ServerResult" />
+                <ScalarProperty Name="Sync_FromServerDt" ColumnName="Sync_FromServerDt" />
+                <ScalarProperty Name="Sync_ToServerDt" ColumnName="Sync_ToServerDt" />
+                <ScalarProperty Name="Sync_ServerLastModified" ColumnName="Sync_ServerLastModified" />
+                <ScalarProperty Name="Sync_IsDeleted" ColumnName="Sync_IsDeleted" />
+                <ScalarProperty Name="Sync_FolderPath" ColumnName="Sync_FolderPath" />
+                <ScalarProperty Name="Sync_UserEmail" ColumnName="Sync_UserEmail" />
+                <ScalarProperty Name="Native_ImportDt" ColumnName="Native_ImportDt" />
+                <ScalarProperty Name="Native_UpdateDt" ColumnName="Native_UpdateDt" />
+                <ScalarProperty Name="Native_ID" ColumnName="Native_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

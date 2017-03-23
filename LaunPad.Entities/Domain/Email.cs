@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaunchPad.Data
+namespace LaunchPad.Entities.Domain
 {
-    public class Class1
+    class Email
     {
     }
 }
