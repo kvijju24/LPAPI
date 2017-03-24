@@ -10,13 +10,18 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using LaunchPad.Data;
 using LaunchPad.Models;
+using LaunchPad.Entities.Domain;
+using LaunchPad.ModelBinders;
+using System.Web.Http.ModelBinding;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace LaunchPad.Controllers
 {
     //[RoutePrefix("Master")]
     public class MasterController : ApiController
     {
-        private ESEntities db = new ESEntities();
+        //private ESEntities db = new ESEntities();
         //public MasterController(ESEntities es)
         //{
         //    db = es;
@@ -24,37 +29,33 @@ namespace LaunchPad.Controllers
 
         [Route("master")]
         [HttpGet]
-        public List<MasterData> GetMaster()
+        //public DataSourceResult GetMaster([ModelBinder(BinderType = typeof(JsonBodyModelBinder<RecordCollection>))]DataSourceRequest recordCollection)
+        public Kendo.Mvc.UI.DataSourceResult GetMaster([ModelBinder(typeof(ModelBinders.DataSourceRequestModelBinder))] Kendo.Mvc.UI.DataSourceRequest request)
         {
-            var returnset = new List<MasterData>();
-            var result= db.tbl_Master.Take(100);
-            foreach(var row in result)
+
+            var result = Unity.Work.Repository<tbl_master>().GetAll().ToDataSourceResult(request, master => new
             {
-                returnset.Add(ConvertToView(row));
-            }
-            return returnset;
+                CompanyName = master.company_name,
+                Address = master.address + master.address2,
+                City = master.city,
+                State = master.state,
+                Zip = master.zip_code,
+                Country = master.country,
+                Phone = master.phone,
+                ContactFirstName = master.contact_first_name,
+                ContactLastName = master.contact_last_name,
+                Email = master.email,
+                URL = "Test"
+            });
+
+            return result;
         }
-        public MasterData ConvertToView(tbl_Master row)
-        {
-            var data = new MasterData();
-            data.CompanyName = row.company_name;
-            data.Address = row.address + row.address2;
-            data.City = row.city;
-            data.State = row.state;
-            data.Zip = row.zip_code;
-            data.Country = row.country;
-            data.Phone = row.phone;
-            data.ContactFirstName = row.contact_first_name;
-            data.ContactLastName = row.contact_last_name;
-            data.Email = row.email;
-            data.URL = row.url;
-            return data;
-        }
+
         // GET: api/Master/5
-        [ResponseType(typeof(tbl_Master))]
+        [ResponseType(typeof(tbl_master))]
         public IHttpActionResult GetMaster(int id)
         {
-            tbl_Master tbl_Master = db.tbl_Master.Find(id);
+            tbl_master tbl_Master = Unity.Work.Repository<tbl_master>().GetById(id);
             if (tbl_Master == null)
             {
                 return NotFound();
@@ -65,7 +66,7 @@ namespace LaunchPad.Controllers
 
         // PUT: api/Master/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMaster(int id, tbl_Master tbl_Master)
+        public IHttpActionResult PutMaster(int id, tbl_master tbl_Master)
         {
             if (!ModelState.IsValid)
             {
@@ -77,11 +78,11 @@ namespace LaunchPad.Controllers
                 return BadRequest();
             }
 
-            db.Entry(tbl_Master).State = EntityState.Modified;
+            Unity.Work.Repository<tbl_master>().Update(tbl_Master);
 
             try
             {
-                db.SaveChanges();
+                Unity.Work.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -99,48 +100,39 @@ namespace LaunchPad.Controllers
         }
 
         // POST: api/Master
-        [ResponseType(typeof(tbl_Master))]
-        public IHttpActionResult PostMaster(tbl_Master tbl_Master)
+        [ResponseType(typeof(tbl_master))]
+        public IHttpActionResult PostMaster(tbl_master tbl_Master)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.tbl_Master.Add(tbl_Master);
-            db.SaveChanges();
+            Unity.Work.Repository<tbl_master>().Insert(tbl_Master);
+            Unity.Work.Save();
 
             return CreatedAtRoute("DefaultApi", new { id = tbl_Master.master_id }, tbl_Master);
         }
 
         // DELETE: api/Master/5
-        [ResponseType(typeof(tbl_Master))]
+        [ResponseType(typeof(tbl_master))]
         public IHttpActionResult DeleteMaster(int id)
         {
-            tbl_Master tbl_Master = db.tbl_Master.Find(id);
+            tbl_master tbl_Master = Unity.Work.Repository<tbl_master>().GetById(id);
             if (tbl_Master == null)
             {
                 return NotFound();
             }
 
-            db.tbl_Master.Remove(tbl_Master);
-            db.SaveChanges();
+            Unity.Work.Repository<tbl_master>().Delete(tbl_Master);
+            Unity.Work.Save();
 
             return Ok(tbl_Master);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool tbl_MasterExists(int id)
         {
-            return db.tbl_Master.Count(e => e.master_id == id) > 0;
+            return Unity.Work.Repository<tbl_master>().GetAll().Count(e => e.master_id == id) > 0;
         }
     }
 }

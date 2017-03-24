@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\vkantipudi\documents\visual studio 2015\Projects\LaunchPad\LaunchPad.Data\LaunchPad.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\quant-sid\Source\Repos\LPAPI\LaunchPad.Data\ModelDemo.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

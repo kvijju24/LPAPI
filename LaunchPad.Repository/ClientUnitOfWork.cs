@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace LaunchPad.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class ClientUnitOfWork : IUnitOfWork
     {
         private readonly IDbContext _context;
         public static IDependencyLocator DependencyLocator;
@@ -17,9 +17,9 @@ namespace LaunchPad.Repository
         private Hashtable _repositories;
         public static IDbContext Context
         {
-            get { return DependencyLocator.LocateDependency<LPDataContext>(); }
+            get { return DependencyLocator.LocateDependency<ClientDataContext>(); }
         }
-        public UnitOfWork()
+        public ClientUnitOfWork()
         {
             _context = Context;
         }

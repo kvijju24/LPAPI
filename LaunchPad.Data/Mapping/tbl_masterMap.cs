@@ -9,12 +9,12 @@ using LaunchPad.Entities.Domain;
 
 namespace LaunchPad.Data.Mapping
 {
-    public class AppointmentMap : EntityTypeConfiguration<Appointment>
+    public class tbl_masterMap : EntityTypeConfiguration<tbl_master>
     {
-        public AppointmentMap()
+        public tbl_masterMap()
         {
-            ToTable("Sync_Appointments");
-            HasKey(s => s.Native_ID).Property(s => s.Native_ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            ToTable("tbl_Master");
+            HasKey(s => s.master_id).Property(s => s.master_id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }
 }

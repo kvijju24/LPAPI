@@ -67,7 +67,7 @@
   <ItemGroup>
     <Compile Include="Domain\Appointment.cs" />
     <Compile Include="Domain\Email.cs" />
-    <Compile Include="Domain\Master.cs" />
+    <Compile Include="Domain\tbl_master.cs" />
     <Compile Include="Domain\tbl_calendar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

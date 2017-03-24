@@ -10,13 +10,16 @@ namespace LaunchPad
     public static class Unity
     {
         public static IUnitOfWork Work { get; set; }
+        public static IUnitOfWork ClientData { get; set; }
         static Unity()
         {
-            var container = new UnityContainer();
-            var section = (UnityConfigurationSection)System.Configuration.ConfigurationManager.GetSection("unity");
-            section.Configure(container);
-            UnitOfWork.DependencyLocator = new DependencyLocator(container);
+            //var container = new UnityContainer();
+            //var section = (UnityConfigurationSection)System.Configuration.ConfigurationManager.GetSection("unity");
+            //section.Configure(container);
+            //UnitOfWork.DependencyLocator = new DependencyLocator(container);
+
             Work = new UnitOfWork();
+            ClientData = new ClientUnitOfWork();
         }
     }
 }

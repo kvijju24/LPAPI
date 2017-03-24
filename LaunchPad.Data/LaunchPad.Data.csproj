@@ -61,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -85,55 +86,37 @@
   <ItemGroup>
     <Compile Include="ClientDataContext.cs" />
     <Compile Include="IDbContext.cs" />
-    <Compile Include="LaunchPad.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaunchPad.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LaunchPad.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaunchPad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LaunchPad.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaunchPad.edmx</DependentUpon>
-    </Compile>
     <Compile Include="LPDataContext.cs" />
     <Compile Include="Mapping\AppointmentMap.cs" />
-    <Compile Include="Mapping\MasterMap.cs" />
+    <Compile Include="Mapping\tbl_masterMap.cs" />
     <Compile Include="Mapping\tbl_calendarMap.cs" />
+    <Compile Include="ModelDemo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDemo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDemo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDemo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDemo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDemo.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sync_Appointments.cs">
-      <DependentUpon>LaunchPad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbl_Master.cs">
-      <DependentUpon>LaunchPad.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="LaunchPad.edmx">
+    <EntityDeploy Include="ModelDemo.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LaunchPad.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelDemo.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="LaunchPad.edmx.diagram">
-      <DependentUpon>LaunchPad.edmx</DependentUpon>
+    <None Include="ModelDemo.edmx.diagram">
+      <DependentUpon>ModelDemo.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LaunchPad.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LaunchPad.edmx</DependentUpon>
-      <LastGenOutput>LaunchPad.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="LaunchPad.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LaunchPad.edmx</DependentUpon>
-      <LastGenOutput>LaunchPad.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -146,6 +129,18 @@
       <Project>{81e00bf0-0fd4-460b-8df8-911bd16a8a1f}</Project>
       <Name>LaunchPad.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelDemo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDemo.edmx</DependentUpon>
+      <LastGenOutput>ModelDemo.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelDemo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDemo.edmx</DependentUpon>
+      <LastGenOutput>ModelDemo.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

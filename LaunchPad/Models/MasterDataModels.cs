@@ -20,22 +20,22 @@ namespace LaunchPad.Models
         public string Email { get; set; }
         public string URL { get; set; }
 
-        public MasterData ConvertToView(tbl_Master row)
-        {
-            var data = new MasterData();
-            data.CompanyName = row.company_name;
-            data.Address = row.address + row.address2;
-            data.City = row.city;
-            data.State = row.state;
-            data.Zip = row.zip_code;
-            data.Country = row.country;
-            data.Phone = row.phone;
-            data.ContactFirstName = row.contact_first_name;
-            data.ContactLastName = row.contact_last_name;
-            data.Email = row.email;
-            data.URL = row.url;
-            return data;
-        }
+        //public MasterData ConvertToView(tbl_Master row)
+        //{
+        //    var data = new MasterData();
+        //    data.CompanyName = row.company_name;
+        //    data.Address = row.address + row.address2;
+        //    data.City = row.city;
+        //    data.State = row.state;
+        //    data.Zip = row.zip_code;
+        //    data.Country = row.country;
+        //    data.Phone = row.phone;
+        //    data.ContactFirstName = row.contact_first_name;
+        //    data.ContactLastName = row.contact_last_name;
+        //    data.Email = row.email;
+        //    data.URL = row.url;
+        //    return data;
+        //}
 
     }
 }

@@ -17,8 +17,8 @@ namespace LaunchPad.Entities.Domain
         public string FirstOccurrence { get; set; }
         public string LastOccurrence { get; set; }
         public string StartTimeZone { get; set; }
-        public System.DateTime Start { get; set; }
-        public System.DateTime End { get; set; }
+        public System.DateTime? Start { get; set; }
+        public System.DateTime? End { get; set; }
         public Nullable<bool> IsAllDayEvent { get; set; }
         public string Location { get; set; }
         public string Sensitivity { get; set; }

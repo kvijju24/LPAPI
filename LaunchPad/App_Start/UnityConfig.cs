@@ -4,6 +4,7 @@ using Unity.WebApi;
 using LaunchPad.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using LaunchPad.Repository;
 
 namespace LaunchPad
 {
@@ -17,9 +18,12 @@ namespace LaunchPad
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<DbContext, ESEntities>((new HierarchicalLifetimeManager()));
+            container.RegisterType<IDbContext, LPDataContext>((new HierarchicalLifetimeManager()));
+            container.RegisterType<IDbContext, ClientDataContext>((new HierarchicalLifetimeManager()));
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            UnitOfWork.DependencyLocator = new DependencyLocator(container);
+            ClientUnitOfWork.DependencyLocator = new DependencyLocator(container);
         }
     }
 }
