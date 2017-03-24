@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,16 @@ namespace LaunchPad.Entities.Domain
 {
     public class tbl_master
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int master_id { get; set; }
+
+        public virtual ICollection<tbl_io_detail> tbl_io_detail { get; set; }
+
+
+
+
+
         public string contact_name { get; set; }
         public string company_name { get; set; }
         public string address { get; set; }
@@ -138,5 +149,7 @@ namespace LaunchPad.Entities.Domain
         public string url2 { get; set; }
         public string zoom_company_url { get; set; }
         public string company_detail_xml_url { get; set; }
+
+        public virtual ICollection<tbl_io> tbl_io { get; set; }
     }
 }

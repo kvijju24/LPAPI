@@ -9,12 +9,12 @@ using LaunchPad.Entities.Domain;
 
 namespace LaunchPad.Data.Mapping
 {
-    public class tbl_masterMap : EntityTypeConfiguration<tbl_master>
-    {
-        public tbl_masterMap()
-        {
-            ToTable("tbl_Master");
-            HasKey(s => s.master_id).Property(s => s.master_id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-        }
-    }
+    //public class tbl_masterMap : EntityTypeConfiguration<tbl_master>
+    //{
+    //    public tbl_masterMap()
+    //    {
+    //        ToTable("tbl_Master");
+    //        HasKey(s => s.master_id).Property(s => s.master_id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+    //    }
+    //}
 }

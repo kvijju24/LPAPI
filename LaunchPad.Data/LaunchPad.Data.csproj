@@ -88,6 +88,8 @@
     <Compile Include="IDbContext.cs" />
     <Compile Include="LPDataContext.cs" />
     <Compile Include="Mapping\AppointmentMap.cs" />
+    <Compile Include="Mapping\tbl_ioMap.cs" />
+    <Compile Include="Mapping\tbl_io_detailMap.cs" />
     <Compile Include="Mapping\tbl_masterMap.cs" />
     <Compile Include="Mapping\tbl_calendarMap.cs" />
     <Compile Include="ModelDemo.Context.cs">

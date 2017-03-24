@@ -263,6 +263,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="DependencyLocator.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="ModelBinders\DataSourceRequestModelBinder.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Orders\OrdersViewModel.cs" />
     <Compile Include="Models\Scheduler\CalendarRepository.cs" />
     <Compile Include="Models\Scheduler\CalendarViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />

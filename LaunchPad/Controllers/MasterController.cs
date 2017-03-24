@@ -26,7 +26,12 @@ namespace LaunchPad.Controllers
         //{
         //    db = es;
         //}
-
+        public class CityView
+        {
+            public string City { get; set; }
+            public string State { get; set; }
+            public DateTime DateCreated { get; set; }
+        }
         [Route("master")]
         [HttpGet]
         //public DataSourceResult GetMaster([ModelBinder(BinderType = typeof(JsonBodyModelBinder<RecordCollection>))]DataSourceRequest recordCollection)
@@ -47,6 +52,20 @@ namespace LaunchPad.Controllers
                 Email = master.email,
                 URL = "Test"
             });
+
+            return result;
+        }
+        [Route("City")]
+        [HttpGet]
+        public CityView GetCityView(string state)
+        {
+
+            var result = Unity.Work.Repository<tbl_master>().GetAll().Where(x=>x.state == state).Select( master => new CityView
+            {
+               City = master.city,
+               State = master.state,
+               DateCreated = master.create_dt
+            }).First();
 
             return result;
         }

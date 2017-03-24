@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class tbl_calendar
+    public class tbl_calendar
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int calendar_id { get; set; }
         public Nullable<System.DateTime> calendar_date { get; set; }
         public string calendar_event_name { get; set; }

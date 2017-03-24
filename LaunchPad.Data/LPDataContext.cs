@@ -32,6 +32,22 @@ namespace LaunchPad.Data
                 dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.Configurations.Add(configurationInstance);
             }
+            modelBuilder.Entity<lu_emp>().ToTable("lu_emp");
+            modelBuilder.Entity<lu_ad_position>().ToTable("lu_ad_position");
+            modelBuilder.Entity<lu_ad_sect>().ToTable("lu_ad_sect");
+            modelBuilder.Entity<lu_ad_shape>().ToTable("lu_ad_shape");
+            modelBuilder.Entity<lu_adsize>().ToTable("lu_adsize");
+            modelBuilder.Entity<lu_iss>().ToTable("lu_iss");
+            modelBuilder.Entity<lu_io_status>().ToTable("lu_io_status");
+            modelBuilder.Entity<lu_pub>().ToTable("lu_pub");
+            modelBuilder.Entity<tbl_calendar>().ToTable("tbl_calendar");
+            modelBuilder.Entity<tbl_io>().ToTable("tbl_io");
+            modelBuilder.Entity<tbl_io_detail>().ToTable("tbl_io_detail");
+            modelBuilder.Entity<tbl_io_detail1>().ToTable("tbl_io_detail1");
+            modelBuilder.Entity<tbl_master>().ToTable("tbl_master");
+
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

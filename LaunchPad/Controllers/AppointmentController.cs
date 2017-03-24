@@ -18,10 +18,6 @@ namespace LaunchPad.Controllers
 {
     public class AppointmentController : ApiController
     {
-        public class TaskRequest
-        {
-            public List<CalendarViewModel> Task { get; set; }
-        }
         [Route("Appointment")]
         [HttpGet]
         public List<CalendarViewModel> Index()
