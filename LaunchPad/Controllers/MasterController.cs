@@ -40,17 +40,17 @@ namespace LaunchPad.Controllers
 
             var result = Unity.Work.Repository<tbl_master>().GetAll().ToDataSourceResult(request, master => new
             {
-                CompanyName = master.company_name,
-                Address = master.address + master.address2,
+                company_name = master.company_name,
+                address = master.address + master.address2,
                 City = master.city,
                 State = master.state,
                 Zip = master.zip_code,
                 Country = master.country,
                 Phone = master.phone,
-                ContactFirstName = master.contact_first_name,
-                ContactLastName = master.contact_last_name,
+                contact_first_name = master.contact_first_name,
+                contact_last_name = master.contact_last_name,
                 Email = master.email,
-                URL = "Test"
+                URL = master.url
             });
 
             return result;

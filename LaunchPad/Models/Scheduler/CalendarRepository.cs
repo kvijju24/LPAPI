@@ -14,18 +14,19 @@ namespace LaunchPad.Models.Scheduler
 
             //if(result==null)
             //{
-               var result = Unity.ClientData.Repository<Appointment>().GetAll().ToList().Select(app => new CalendarViewModel
+               var result = Unity.Work.Repository<tbl_calendar>().GetAll().ToList().Select(app => new CalendarViewModel
                 {
-                    TaskID = app.Native_ID,
-                    Title = app.Subject,
-                    Start = DateTime.SpecifyKind(app.Start ?? DateTime.Now, DateTimeKind.Utc),
-                    End = DateTime.SpecifyKind(app.End?? DateTime.Now, DateTimeKind.Utc),
-                    StartTimezone = app.StartTimeZone,
-                    EndTimezone = app.StartTimeZone,
-                    Description = app.Body,
-                    IsAllDay = app.IsAllDayEvent,
-                    RecurrenceRule = app.Recurrence,
-                    // RecurrenceID = app.RecurrenceID,
+                    TaskID = app.calendar_id,
+                    Title = app.calendar_event_name,
+                    Start = DateTime.SpecifyKind(app.calendar_start_time ?? DateTime.Now, DateTimeKind.Utc),
+                    End = DateTime.SpecifyKind(app.calendar_end_time ?? DateTime.Now, DateTimeKind.Utc),
+                    StartTimezone = app.StartTimezone,
+                    EndTimezone = app.StartTimezone,
+                    Description = app.calendar_event_description,
+                    IsAllDay = app.IsAllDay,
+                    RecurrenceRule = app.calendar_recurring,
+                  RecurrenceID = app.calendar_rid,
+                  RecurrenceException = app.RecurrenceException
                     //OwnerID = app.Launchpad_ID
                 }).ToList();
                 //HttpContext.Current.Session["Calendar"] = result;
@@ -44,9 +45,10 @@ namespace LaunchPad.Models.Scheduler
             if (appointment.TaskID == 0)
             {
                 var entity = appointment.ToEntity();
-                Unity.ClientData.Repository<Appointment>().Insert(entity);
-                Unity.ClientData.Save();
-                appointment.TaskID = entity.Native_ID;
+                Unity.Work.Repository<tbl_calendar>().Insert(entity);
+                Unity.Work.Repository<tbl_calendar>().Validate(entity);
+                Unity.Work.Save();
+                appointment.TaskID = entity.calendar_id;
             }
             return appointment;
         }

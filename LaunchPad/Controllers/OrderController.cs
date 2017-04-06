@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using Kendo.Mvc.Extensions;
 
 namespace LaunchPad.Controllers
 {
@@ -14,10 +16,10 @@ namespace LaunchPad.Controllers
     {
         [Route("Order")]
         [HttpGet]
-        public List<OrdersViewModel> Index()
+        public Kendo.Mvc.UI.DataSourceResult Index([ModelBinder(typeof(ModelBinders.DataSourceRequestModelBinder))] Kendo.Mvc.UI.DataSourceRequest request)
         {
             //return this.Jsonp();
-            var result = Unity.Work.Repository<tbl_io_detail>().GetAll().Take(100).ToList().Select(order => new OrdersViewModel
+            var result = Unity.Work.Repository<tbl_io_detail>().GetAll().Take(1000).ToList().ToDataSourceResult(request ,order => new OrdersViewModel
             {
                 io_detail1_id = order.io_detail1_id.ToString(),
                 cust_accp_dt = order.tbl_io != null ? order.tbl_io.cust_accp_dt.ToString() : null,
@@ -35,7 +37,7 @@ namespace LaunchPad.Controllers
                 currency = GetCurrencyName(order.currency_id)
 
 
-            }).ToList();
+            });
             return result;
         }
         public string GetCurrencyName(int Id)

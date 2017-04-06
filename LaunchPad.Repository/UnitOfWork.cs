@@ -40,7 +40,7 @@ namespace LaunchPad.Repository
             {
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // _context.Dispose();
                 //  new UnitOfWork();

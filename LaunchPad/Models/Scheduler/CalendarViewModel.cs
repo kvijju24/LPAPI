@@ -12,22 +12,20 @@ namespace LaunchPad.Models.Scheduler
         public int TaskID { get; set; }
         public int? OwnerID { get; set; }
 
-        public Appointment ToEntity()
+        public tbl_calendar ToEntity()
         {
-            return new Appointment
+            return new tbl_calendar
             {
-                Subject = Title,
-                Start = Start,
-                StartTimeZone = StartTimezone,
-                End = End,
-                //EndTimezone = EndTimezone,
-                Body = Description,
-                Recurrence = RecurrenceRule,
-               // RecurrenceException = RecurrenceException,
-                //calendar_rid = RecurrenceID,
-                IsAllDayEvent = IsAllDay,
-                //Launchpad_ID = OwnerID,
-                Sync_UserEmail="kvijju24@gmail.com"
+                calendar_event_name = Title,
+                calendar_start_time = Start,
+                StartTimezone = StartTimezone,
+                calendar_end_time = End,
+                EndTimezone = EndTimezone,
+                calendar_event_description = Description,
+                RecurrenceRule = RecurrenceRule,
+                RecurrenceException = RecurrenceException,
+                calendar_rid = RecurrenceID,
+                IsAllDay = IsAllDay
                 
             };
         }

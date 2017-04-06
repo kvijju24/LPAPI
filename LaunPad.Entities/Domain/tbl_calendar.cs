@@ -74,5 +74,11 @@ namespace LaunchPad.Entities.Domain
         public bool is_exchange { get; set; }
         public bool is_exchange_processed { get; set; }
         public bool is_calendar_processed { get; set; }
+
+        public string StartTimezone { get; set; }
+        public string EndTimezone { get; set; }
+        public string RecurrenceRule { get; set; }
+        public string RecurrenceException { get; set; }
+        public bool? IsAllDay { get; set; }
     }
 }
