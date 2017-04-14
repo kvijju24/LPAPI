@@ -45,6 +45,7 @@ namespace LaunchPad.Data
             modelBuilder.Entity<tbl_io_detail>().ToTable("tbl_io_detail");
             modelBuilder.Entity<tbl_io_detail1>().ToTable("tbl_io_detail1");
             modelBuilder.Entity<tbl_master>().ToTable("tbl_master");
+            modelBuilder.Entity<tbl_gl_export>().ToTable("tbl_gl_export");
 
 
 
