@@ -5,6 +5,8 @@ using LaunchPad.Repository;
 using LaunchPad.Entities.Domain;
 using LaunchPad.Data;
 using System.Linq;
+using LaunchPad.Models.DesignerDummy;
+using static LaunchPad.Models.DesignerDummy.DummyViewModel;
 
 namespace LaunchPad.Tests.Controllers
 {
@@ -101,19 +103,17 @@ namespace LaunchPad.Tests.Controllers
             // Assert.AreEqual(1000, result.Count());
 
         }
-        //[TestMethod]
-        //public void GetMaster()
-        //{
-        //    // Arrange
-        //    var controller = new MasterController();
+        [TestMethod]
+        public void GetMaster()
+        {
+            // Arrange
+            var data = new DesignDummyViewModel { ad_id = "1", page_id = "1", xStart = "1", yStart = "1" };
+            var result =DesignDummyRepository.Insert(data);
 
-        //    // Act
-        //    var result = controller.GetMaster();
+            // Assert
+            Assert.IsNotNull(result);
+            // Assert.AreEqual(1000, result.Count());
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    // Assert.AreEqual(1000, result.Count());
-
-        //}
+        }
     }
 }

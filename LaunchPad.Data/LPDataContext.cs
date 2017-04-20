@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Reflection;
 using LaunchPad.Entities.Domain;
+using LaunchPad.Entities.Domain.Dummy;
 
 namespace LaunchPad.Data
 {
@@ -46,6 +47,18 @@ namespace LaunchPad.Data
             modelBuilder.Entity<tbl_io_detail1>().ToTable("tbl_io_detail1");
             modelBuilder.Entity<tbl_master>().ToTable("tbl_master");
             modelBuilder.Entity<tbl_gl_export>().ToTable("tbl_gl_export");
+            modelBuilder.Entity<lu_dummy_page_dimension>().ToTable("lu_dummy_page_dimension");
+            modelBuilder.Entity<tbl_dummy_folio>().ToTable("tbl_dummy_folio");
+            modelBuilder.Entity<tbl_dummy_page>().ToTable("tbl_dummy_page");
+            modelBuilder.Entity<tbl_dummy_page_placement>().ToTable("tbl_dummy_page_placement");
+            modelBuilder.Entity<lu_ad_clr>().ToTable("lu_ad_clr");
+            modelBuilder.Entity<lu_adsize_trim>().ToTable("lu_adsize_trim");
+            modelBuilder.Entity<lu_brand>().ToTable("lu_brand");
+            modelBuilder.Entity<lu_edition>().ToTable("lu_edition");
+            modelBuilder.Entity<lu_pib>().ToTable("lu_pib");
+            modelBuilder.Entity<tbl_io_detail_run_date>().ToTable("tbl_io_detail_run_date");
+            modelBuilder.Entity<tbl_media_page_number>().ToTable("tbl_media_page_number");
+            modelBuilder.Entity<tbl_specad_upload>().ToTable("tbl_specad_upload");
 
 
 

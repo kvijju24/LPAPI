@@ -92,6 +92,7 @@
     <Compile Include="Mapping\tbl_io_detailMap.cs" />
     <Compile Include="Mapping\tbl_masterMap.cs" />
     <Compile Include="Mapping\tbl_calendarMap.cs" />
+    <Compile Include="Mapping\tbl_media_page_numberMap.cs" />
     <Compile Include="ModelDemo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -66,21 +66,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Appointment.cs" />
+    <Compile Include="Domain\Dummy\lu_dummy_page_dimension.cs" />
+    <Compile Include="Domain\Dummy\tbl_dummy_folio.cs" />
+    <Compile Include="Domain\Dummy\tbl_dummy_page.cs" />
+    <Compile Include="Domain\Dummy\tbl_dummy_page_placement.cs" />
     <Compile Include="Domain\lu_adsize.cs" />
+    <Compile Include="Domain\lu_adsize_trim.cs" />
+    <Compile Include="Domain\lu_ad_clr.cs" />
     <Compile Include="Domain\lu_ad_position.cs" />
     <Compile Include="Domain\lu_ad_sect.cs" />
     <Compile Include="Domain\lu_ad_shape.cs" />
+    <Compile Include="Domain\lu_brand.cs" />
+    <Compile Include="Domain\lu_edition.cs" />
     <Compile Include="Domain\lu_emp.cs" />
     <Compile Include="Domain\lu_iss.cs" />
     <Compile Include="Domain\lu_io_status.cs" />
     <Compile Include="Domain\lu_media_group.cs" />
+    <Compile Include="Domain\lu_pib.cs" />
     <Compile Include="Domain\lu_pub.cs" />
     <Compile Include="Domain\tbl_gl_Export.cs" />
     <Compile Include="Domain\tbl_io.cs" />
     <Compile Include="Domain\tbl_io_detail.cs" />
     <Compile Include="Domain\tbl_io_detail1.cs" />
+    <Compile Include="Domain\tbl_io_detail_run_date.cs" />
     <Compile Include="Domain\tbl_master.cs" />
     <Compile Include="Domain\tbl_calendar.cs" />
+    <Compile Include="Domain\tbl_media_page_number.cs" />
+    <Compile Include="Domain\tbl_specad_upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
