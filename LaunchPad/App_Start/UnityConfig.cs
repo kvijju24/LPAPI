@@ -21,7 +21,7 @@ namespace LaunchPad
             container.RegisterType<IDbContext, LPDataContext>((new HierarchicalLifetimeManager()));
             container.RegisterType<IDbContext, ClientDataContext>((new HierarchicalLifetimeManager()));
 
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);
             UnitOfWork.DependencyLocator = new DependencyLocator(container);
             ClientUnitOfWork.DependencyLocator = new DependencyLocator(container);
         }

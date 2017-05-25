@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class lu_brand
+    public class lu_brand
     {
         public lu_brand()
         {
             this.tbl_media_page_number = new HashSet<tbl_media_page_number>();
+            this.tbl_master_contact_brand = new HashSet<tbl_master_contact_brand>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -27,5 +28,6 @@ namespace LaunchPad.Entities.Domain
         public Nullable<System.DateTime> delete_dt { get; set; }
 
         public virtual ICollection<tbl_media_page_number> tbl_media_page_number { get; set; }
+        public virtual ICollection<tbl_master_contact_brand> tbl_master_contact_brand { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace LaunchPad.Entities.Domain.Dummy
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int dummy_folio_id { get; set; }
+        public string folio_name { get; set; }
         public Nullable<int> dummy_page_dimension_id { get; set; }
         public Nullable<int> total_page { get; set; }
         public Nullable<int> start_page_number { get; set; }

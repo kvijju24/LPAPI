@@ -19,10 +19,10 @@ namespace LaunchPad.Data
             : base("Name=ClientDataContext")
         {
         }
-        //private ClientDataContext(DbConnection connectionString, bool contextOwnsConnection = true) : base(connectionString, contextOwnsConnection)
-        //{
+        private ClientDataContext(DbConnection connectionString, bool contextOwnsConnection = true) : base(connectionString, contextOwnsConnection)
+        {
 
-        //}
+        }
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -40,28 +40,28 @@ namespace LaunchPad.Data
             }
             base.OnModelCreating(modelBuilder);
         }
-        //public static ClientDataContext CreateEntitiesForSpecificDatabaseName(string databaseName, bool contextOwnsConnection = true)
-        //{
-        //    //Initialize the SqlConnectionStringBuilder
-        //    SqlConnectionStringBuilder sqlConnectionBuilder = new SqlConnectionStringBuilder();
-        //    sqlConnectionBuilder.DataSource = @"localhost\sqlexpress";
-        //    sqlConnectionBuilder.InitialCatalog = databaseName;
-        //    sqlConnectionBuilder.IntegratedSecurity = true;
-        //    sqlConnectionBuilder.MultipleActiveResultSets = true;
-        //    string sqlConnectionString = sqlConnectionBuilder.ConnectionString;
+        public static ClientDataContext CreateEntitiesForSpecificDatabaseName(string databaseName, bool contextOwnsConnection = true)
+        {
+            //Initialize the SqlConnectionStringBuilder
+            SqlConnectionStringBuilder sqlConnectionBuilder = new SqlConnectionStringBuilder();
+            sqlConnectionBuilder.DataSource = @"localhost\sqlexpress";
+            sqlConnectionBuilder.InitialCatalog = databaseName;
+            sqlConnectionBuilder.IntegratedSecurity = true;
+            sqlConnectionBuilder.MultipleActiveResultSets = true;
+            string sqlConnectionString = sqlConnectionBuilder.ConnectionString;
 
-        //    //Initialize the EntityConnectionStringBuilder
-        //    EntityConnectionStringBuilder entityBuilder = new EntityConnectionStringBuilder();
-        //    entityBuilder.Provider = "System.Data.SqlClient";
-        //    entityBuilder.ProviderConnectionString = sqlConnectionString;
+            //Initialize the EntityConnectionStringBuilder
+            EntityConnectionStringBuilder entityBuilder = new EntityConnectionStringBuilder();
+            entityBuilder.Provider = "System.Data.SqlClient";
+            entityBuilder.ProviderConnectionString = sqlConnectionString;
 
-        //    //Set the Metadata location.
-        //    entityBuilder.Metadata = @"res://*/DataAccess.EncounterModel.EncounterModel.csdl|res://*/DataAccess.EncounterModel.EncounterModel.ssdl|res://*/DataAccess.EncounterModel.EncounterModel.msl";
+            //Set the Metadata location.
+            entityBuilder.Metadata = @"res://*/DataAccess.EncounterModel.EncounterModel.csdl|res://*/DataAccess.EncounterModel.EncounterModel.ssdl|res://*/DataAccess.EncounterModel.EncounterModel.msl";
 
-        //    //Create entity connection
-        //    EntityConnection connection = new EntityConnection(entityBuilder.ConnectionString);
+            //Create entity connection
+            EntityConnection connection = new EntityConnection(entityBuilder.ConnectionString);
 
-        //    return new ClientDataContext(connection);
-        //}
+            return new ClientDataContext(connection);
+        }
     }
 }

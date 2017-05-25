@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class lu_edition
+    public class lu_edition
     {
         public lu_edition()
         {

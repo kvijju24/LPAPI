@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class lu_adsize_trim
+    public class lu_adsize_trim
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

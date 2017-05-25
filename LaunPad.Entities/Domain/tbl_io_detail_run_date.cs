@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class tbl_io_detail_run_date
+    public class tbl_io_detail_run_date
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaunchPad.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,12 +14,15 @@ namespace LaunchPad
     {
         protected void Application_Start()
         {
+            var config = GlobalConfiguration.Configuration;
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            UnityConfig.RegisterComponents();
+            //WebApiConfig.Register(config);
+            Bootstrapper.Run();
+            //UnityConfig.RegisterComponents();
         }
     }
 }

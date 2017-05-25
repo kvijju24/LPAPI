@@ -107,13 +107,23 @@ namespace LaunchPad.Tests.Controllers
         public void GetMaster()
         {
             // Arrange
-            var data = new DesignDummyViewModel { ad_id = "1", page_id = "1", xStart = "1", yStart = "1" };
-            var result =DesignDummyRepository.Insert(data);
-
+            var data = new DesignDummyViewModel { ad_id = 1, xStart = 1, yStart = 1 };
+            //var result =DesignDummyRepository.CreateDesign(data,1);
+            //var test = DesignDummyRepository.CreatePages(53, 1);
+            //var test = DesignDummyRepository.UpdatePages();
+            var test = DesignDummyRepository.AllAds(69,4520);
+            //var test = DesignDummyRepository.GetDesignDataByPageId(59);
             // Assert
-            Assert.IsNotNull(result);
+            //Assert.IsNotNull(test);
             // Assert.AreEqual(1000, result.Count());
 
+        }
+        [TestMethod]
+        public void ContactTest()
+        {
+
+            var controller = new MasterController();
+            var test = controller.GetMasterContact();
         }
     }
 }

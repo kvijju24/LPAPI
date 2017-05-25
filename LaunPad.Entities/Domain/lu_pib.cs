@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class lu_pib
+    public class lu_pib
     {
         public lu_pib()
         {

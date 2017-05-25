@@ -76,6 +76,7 @@ namespace LaunchPad.Entities.Domain
         public Nullable<int> job_ad_identifier { get; set; }
 
         public int status { get; set; }
+        [ForeignKey("status")]
         public virtual lu_io_status lu_io_status { get; set; }
 
         public int agency_discount_yn { get; set; }
@@ -91,6 +92,7 @@ namespace LaunchPad.Entities.Domain
         public Nullable<int> bill_register_id { get; set; }
 
         public int agree_with { get; set; }
+        [ForeignKey("agree_with")]
         public virtual tbl_master tbl_master { get; set; }
 
         public int bill_plan_link { get; set; }

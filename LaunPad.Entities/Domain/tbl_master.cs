@@ -10,11 +10,17 @@ namespace LaunchPad.Entities.Domain
 {
     public class tbl_master
     {
+        public tbl_master()
+        {
+            tbl_io_details = new HashSet<tbl_io_detail>();
+            tbl_master_contacts = new HashSet<tbl_master_contact>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int master_id { get; set; }
 
-        public virtual ICollection<tbl_io_detail> tbl_io_detail { get; set; }
+        public virtual ICollection<tbl_io_detail> tbl_io_details { get; set; }
+        public virtual ICollection<tbl_master_contact> tbl_master_contacts { get; set; }
 
 
 

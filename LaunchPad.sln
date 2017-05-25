@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Entities", "LaunP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Repository", "LaunchPad.Repository\LaunchPad.Repository.csproj", "{6AE25B19-AD3B-4E72-BE95-910AFE82A87F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Services", "LaunchPad.Services\LaunchPad.Services.csproj", "{1BB08864-DA7E-4186-8EA1-C889E02BD133}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EC39183C-4BF2-414C-BD12-F341193CA90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EC39183C-4BF2-414C-BD12-F341193CA90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC39183C-4BF2-414C-BD12-F341193CA90C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{EC39183C-4BF2-414C-BD12-F341193CA90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC39183C-4BF2-414C-BD12-F341193CA90C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FCDC0F4-A374-464A-B55B-2DA13EB8AB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -39,6 +42,10 @@ Global
 		{6AE25B19-AD3B-4E72-BE95-910AFE82A87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE25B19-AD3B-4E72-BE95-910AFE82A87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE25B19-AD3B-4E72-BE95-910AFE82A87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB08864-DA7E-4186-8EA1-C889E02BD133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB08864-DA7E-4186-8EA1-C889E02BD133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB08864-DA7E-4186-8EA1-C889E02BD133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB08864-DA7E-4186-8EA1-C889E02BD133}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

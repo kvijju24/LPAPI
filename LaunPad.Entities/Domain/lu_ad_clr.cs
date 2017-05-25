@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class lu_ad_clr
+    public class lu_ad_clr
     {
         public lu_ad_clr()
         {

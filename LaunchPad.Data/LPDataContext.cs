@@ -23,6 +23,43 @@ namespace LaunchPad.Data
             return base.Set<TEntity>();
         }
 
+        public virtual void Commit()
+        {
+            base.SaveChanges();
+        }
+
+        public DbSet<lu_emp> lu_emp { get; set; }
+        public DbSet<lu_ad_position> lu_ad_position { get; set; }
+        public DbSet<lu_ad_sect> lu_ad_sect { get; set; }
+        public DbSet<lu_ad_shape> lu_ad_shape { get; set; }
+        public DbSet<lu_adsize> lu_adsize { get; set; }
+        public DbSet<lu_iss> lu_iss { get; set; }
+        public DbSet<lu_io_status> lu_io_status { get; set; }
+        public DbSet<lu_pub> lu_pub { get; set; }
+        public DbSet<tbl_calendar> tbl_calendar { get; set; }
+        public DbSet<tbl_io> tbl_io { get; set; }
+        public DbSet<tbl_io_detail> tbl_io_detail { get; set; }
+        public DbSet<tbl_io_detail1> tbl_io_detail1 { get; set; }
+        public DbSet<tbl_master> tbl_master { get; set; }
+        public DbSet<tbl_gl_export> tbl_gl_export { get; set; }
+        public DbSet<lu_dummy_page_dimension> lu_dummy_page_dimension { get; set; }
+        public DbSet<tbl_dummy_folio> tbl_dummy_folio { get; set; }
+        public DbSet<tbl_dummy_page> tbl_dummy_page { get; set; }
+        public DbSet<tbl_dummy_page_placement> tbl_dummy_page_placement { get; set; }
+        public DbSet<lu_ad_clr> lu_ad_clr { get; set; }
+        public DbSet<lu_adsize_trim> lu_adsize_trim { get; set; }
+        public DbSet<lu_brand> lu_brand { get; set; }
+        public DbSet<lu_edition> lu_edition { get; set; }
+        public DbSet<lu_pib> lu_pib { get; set; }
+        public DbSet<tbl_io_detail_run_date> tbl_io_detail_run_date { get; set; }
+        public DbSet<tbl_media_page_number> tbl_media_page_number { get; set; }
+        public DbSet<tbl_specad_upload> tbl_specad_upload { get; set; }
+        public DbSet<lu_adsize_media_trim> lu_adsize_media_trim { get; set; }
+        public IDbSet<tbl_master_contact> tbl_master_contact { get; set; }
+        public IDbSet<tbl_master_contact_brand> tbl_master_contact_brand { get; set; }
+        public IDbSet<tbl_master_contact_media> tbl_master_contact_media { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
@@ -59,6 +96,11 @@ namespace LaunchPad.Data
             modelBuilder.Entity<tbl_io_detail_run_date>().ToTable("tbl_io_detail_run_date");
             modelBuilder.Entity<tbl_media_page_number>().ToTable("tbl_media_page_number");
             modelBuilder.Entity<tbl_specad_upload>().ToTable("tbl_specad_upload");
+            modelBuilder.Entity<lu_adsize_media_trim>().ToTable("lu_adsize_media_trim");
+            modelBuilder.Entity<tbl_master_contact>().ToTable("tbl_master_contact");
+            modelBuilder.Entity<tbl_master_contact_media>().ToTable("tbl_master_contact_media");
+            modelBuilder.Entity<tbl_master_contact_brand>().ToTable("tbl_master_contact_brand");
+
 
 
 

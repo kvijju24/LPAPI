@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class tbl_specad_upload
+    public class tbl_specad_upload
     {
         public tbl_specad_upload()
         {

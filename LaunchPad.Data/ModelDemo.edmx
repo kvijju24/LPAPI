@@ -12,7 +12,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="LP0808TSTModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="LP0808TSTEntities">
-          </EntityContainer>
+        </EntityContainer>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

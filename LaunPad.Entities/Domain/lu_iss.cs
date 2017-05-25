@@ -14,6 +14,7 @@ namespace LaunchPad.Entities.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int iss_id { get; set; }
         public int pub_id { get; set; }
+        public virtual lu_pub lu_pub { get; set; }
         public string issue_pub_code { get; set; }
         public string issue_pub_description { get; set; }
         public int yr { get; set; }

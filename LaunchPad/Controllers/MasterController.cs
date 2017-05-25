@@ -60,16 +60,18 @@ namespace LaunchPad.Controllers
         //public DataSourceResult GetMaster([ModelBinder(BinderType = typeof(JsonBodyModelBinder<RecordCollection>))]DataSourceRequest recordCollection)
         public List<ContactViewModel> GetMasterContact()
         {
-
-            var result = Unity.Work.Repository<tbl_master>().GetAll().Where(n=>n.contact_first_name!=null).Where(a=>a.contact_first_name!=" ").Select(master => new ContactViewModel
+            using (LPDataContext context = new LPDataContext())
             {
-                contact_first_name = master.contact_first_name,
-                contact_last_name = master.contact_last_name,
-                Email = master.email,
-                URL = master.url
-            }).OrderBy(x=>x.contact_first_name).ToList();
+                var result = context.tbl_master.Where(n => n.contact_first_name != null).Where(a => a.contact_first_name != " " && a.contact_first_name.Contains("Ge")).OrderBy(x => x.contact_first_name).Take(100).Select(master => new ContactViewModel
+                {
+                    contact_first_name = master.contact_first_name,
+                    contact_last_name = master.contact_last_name,
+                    Email = master.email,
+                    URL = master.url,
+                }).ToList();
 
-            return result;
+                return result;
+            }
         }
         [Route("City")]
         [HttpGet]

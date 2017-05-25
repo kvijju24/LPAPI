@@ -71,6 +71,7 @@
     <Compile Include="Domain\Dummy\tbl_dummy_page.cs" />
     <Compile Include="Domain\Dummy\tbl_dummy_page_placement.cs" />
     <Compile Include="Domain\lu_adsize.cs" />
+    <Compile Include="Domain\lu_adsize_media_trim.cs" />
     <Compile Include="Domain\lu_adsize_trim.cs" />
     <Compile Include="Domain\lu_ad_clr.cs" />
     <Compile Include="Domain\lu_ad_position.cs" />
@@ -91,9 +92,14 @@
     <Compile Include="Domain\tbl_io_detail_run_date.cs" />
     <Compile Include="Domain\tbl_master.cs" />
     <Compile Include="Domain\tbl_calendar.cs" />
+    <Compile Include="Domain\tbl_master_contact.cs" />
+    <Compile Include="Domain\tbl_master_contact_brand.cs" />
+    <Compile Include="Domain\tbl_master_contact_media.cs" />
     <Compile Include="Domain\tbl_media_page_number.cs" />
     <Compile Include="Domain\tbl_specad_upload.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

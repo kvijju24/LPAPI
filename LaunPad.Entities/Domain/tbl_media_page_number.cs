@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LaunchPad.Entities.Domain
 {
-    public partial class tbl_media_page_number
+    public class tbl_media_page_number
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -58,7 +58,7 @@ namespace LaunchPad.Entities.Domain
         public Nullable<System.DateTime> end_dt { get; set; }
         public Nullable<int> detail_run_date_id { get; set; }
         public virtual tbl_io_detail_run_date tbl_io_detail_run_date { get; set; }
-
+        [ForeignKey("clr_cde")]
         public virtual lu_ad_clr lu_ad_clr { get; set; }
         public virtual lu_brand lu_brand { get; set; }
         public virtual lu_edition lu_edition { get; set; }
