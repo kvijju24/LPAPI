@@ -24,8 +24,9 @@ namespace LaunchPad.Mappings
             CreateMap<lu_brand, Models.BrandViewModel>();
             CreateMap<tbl_dummy_page, DummyPageViewModel>();
             CreateMap<tbl_dummy_folio, FolioViewMode>();
+            CreateMap<lu_dummy_coordinate, CoordinatesViewMode>();
 
-            
+
 
 
 

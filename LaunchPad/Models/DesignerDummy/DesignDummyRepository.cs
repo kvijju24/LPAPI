@@ -7,33 +7,35 @@ using static LaunchPad.Models.DesignerDummy.DummyViewModel;
 using LaunchPad.Entities.Domain.Dummy;
 using LaunchPad.Data;
 using LaunchPad.Data.Repositories;
+using AutoMapper;
+using System.IO;
 
 namespace LaunchPad.Models.DesignerDummy
 {
     public class DesignDummyRepository
     {
-        private static LPDataContext db = new LPDataContext();
-        public DesignDummyRepository(LPDataContext lp)
+        private static ClientDataContext db = new ClientDataContext();
+        public DesignDummyRepository(ClientDataContext lp)
         {
             db = lp;
         }
-        public static AdvertisementViewMode GetAdViewById(int ad_id)
-        {
-            using (LPDataContext context = new LPDataContext())
-            {
-                var ad = context.tbl_media_page_number.Where(x => x.media_page_number == ad_id).FirstOrDefault();
-                var adView = BuildAdViewModel(ad);
-                var mediaTrim = context.lu_adsize_media_trim.ToList()
-                    .Where(x => x.adsize_id == adView.adsize_id && x.pub_id == adView.pub_id && (adView.ad_shape_id == (x.lu_adsize_trim != null ? x.lu_adsize_trim.ad_shape_id.GetValueOrDefault() : 0))).FirstOrDefault();
-                if (mediaTrim != null && mediaTrim.lu_adsize_trim != null)
-                {
-                    adView.adsize_trim_desc = mediaTrim.lu_adsize_trim.adsize_trim_desc;
-                    adView.AdSizeType = GetAdSizeType(mediaTrim.lu_adsize_trim.adsize_trim_desc);
-                }
-                return adView;
-            }
+        //public static AdvertisementViewMode GetAdViewById(int ad_id)
+        //{
+        //    using (ClientDataContext context = new ClientDataContext())
+        //    {
+        //        var ad = context.tbl_media_page_number.Where(x => x.media_page_number == ad_id).FirstOrDefault();
+        //        var adView = BuildAdViewModel(ad);
+        //        var mediaTrim = context.lu_adsize_media_trim.ToList()
+        //            .Where(x => x.adsize_id == adView.adsize_id && x.pub_id == adView.pub_id && (adView.ad_shape_id == (x.lu_adsize_trim != null ? x.lu_adsize_trim.ad_shape_id.GetValueOrDefault() : 0))).FirstOrDefault();
+        //        if (mediaTrim != null && mediaTrim.lu_adsize_trim != null)
+        //        {
+        //            adView.adsize_trim_desc = mediaTrim.lu_adsize_trim.adsize_trim_desc;
+        //            adView.AdSizeType = GetAdSizeType(mediaTrim.lu_adsize_trim.adsize_trim_desc);
+        //        }
+        //        return adView;
+        //    }
 
-        }
+        //}
         //private ESEntities db = new ESEntities();
         //public MasterController(ESEntities es)
         //{
@@ -43,34 +45,38 @@ namespace LaunchPad.Models.DesignerDummy
         {
             return str.Substring(0, Math.Min(str.Length, maxLength));
         }
-        public static IEnumerable<AdvertisementViewMode> AllAds(int pub_id, int iss_id)
-        {
-            using (LPDataContext context = new LPDataContext())
-            {
-                var mediaTrim = context.lu_adsize_media_trim.ToList();
+        //public static IEnumerable<AdvertisementViewMode> AllAds(int pub_id, int iss_id)
+        //{
+        //    using (ClientDataContext context = new ClientDataContext())
+        //    {
+        //        var mediaTrim = context.lu_adsize_media_trim.ToList();
 
-                var result = context.tbl_media_page_number.Where(x => x.pub_id == pub_id && x.iss_id == iss_id).ToList().Select(ad => BuildAdViewModel(ad));
-                var test = result.Join(
-                     mediaTrim,
-                     mediaPage => new { mediaPage.adsize_id, mediaPage.pub_id },
-                     trim => new { trim.adsize_id, trim.pub_id },
-                     (t1, t2) => new { t1, t2 })
-                    .Where(o => o.t2.lu_adsize_trim != null && o.t1.ad_shape_id == o.t2.lu_adsize_trim.ad_shape_id.GetValueOrDefault())
-                 .Select(o => new { o.t1, o.t2.lu_adsize_trim.adsize_trim_desc });
+        //        var result = context.tbl_media_page_number.Where(x => x.pub_id == pub_id && x.iss_id == iss_id).ToList().Select(ad => BuildAdViewModel(ad));
+        //        var test = result.Join(
+        //             mediaTrim,
+        //             mediaPage => new { mediaPage.adsize_id, mediaPage.pub_id },
+        //             trim => new { trim.adsize_id, trim.pub_id },
+        //             (t1, t2) => new { t1, t2 })
+        //            .Where(o => o.t2.lu_adsize_trim != null && o.t1.ad_shape_id == o.t2.lu_adsize_trim.ad_shape_id.GetValueOrDefault())
+        //         .Select(o => new { o.t1, o.t2.lu_adsize_trim.adsize_trim_desc, o.t2.lu_adsize_trim.lu_dummy_coordinate });
 
-                var adsList = new List<AdvertisementViewMode>();
-                foreach (var i in test)
-                {
-                    i.t1.adsize_trim_desc = i.adsize_trim_desc;
-                    i.t1.AdSizeType = GetAdSizeType(i.adsize_trim_desc);
-                    adsList.Add(i.t1);
-                }
-                var uniquPlacedAds = context.tbl_dummy_page_placement.ToList().Select(x => x.media_page_number_id).Distinct();
-                return adsList.Where(x => !uniquPlacedAds.Contains(x.ad_id) && x.adsize_trim_desc != null).OrderBy(x => x.company_name).Distinct();
-            }
-        }
+        //        var adsList = new List<AdvertisementViewMode>();
+        //        foreach (var i in test)
+        //        {
+        //            i.t1.adsize_trim_desc = i.adsize_trim_desc;
+        //            i.t1.AdSizeType = GetAdSizeType(i.adsize_trim_desc);
+        //            if (i.lu_dummy_coordinate != null)
+        //            {
+        //                i.t1.coordinates = Mapper.Map<lu_dummy_coordinate, CoordinatesViewMode>(i.lu_dummy_coordinate);
+        //            }
+        //            adsList.Add(i.t1);
+        //        }
+        //        var uniquPlacedAds = context.tbl_dummy_page_placement.ToList().Select(x => x.media_page_number_id).Distinct();
+        //        return adsList.Where(x => !uniquPlacedAds.Contains(x.ad_id) && x.adsize_trim_desc != null).OrderBy(x => x.company_name).Distinct();
+        //    }
+        //}
         
-        public static AdvertisementViewMode BuildAdViewModel(tbl_media_page_number ad)
+        public static AdvertisementViewMode BuildAdViewModel(tbl_media_page_number ad, lu_client luClient)
         {
             return new AdvertisementViewMode
             {
@@ -89,8 +95,18 @@ namespace LaunchPad.Models.DesignerDummy
                 pub_id = ad.pub_id.GetValueOrDefault(),
                 ad_shape_id = ad.ad_shape_id.GetValueOrDefault(),
                 spec_file = ad.tbl_specad_upload != null ? ad.tbl_specad_upload.spec_file : null,
+                status = ad.status == 0 ? true : false,
+                image_path = ad.tbl_specad_upload != null ? "https://" + luClient.client_domain + "/secure/cf/" + luClient.client_auto_id + "/specad/" + GetImageFileName(ad.tbl_specad_upload.spec_file) : null
 
             };
+        }
+        public static string GetImageFileName(string fileName)
+        {
+            var ext = Path.GetExtension(fileName);
+            var name = Path.GetFileNameWithoutExtension(fileName);
+            if (ext == ".pdf")
+                return "flatplan_" + name + "_page_1.jpg";
+            return fileName;
         }
         public static string IfNullEmpty(string input)
         {
@@ -130,7 +146,7 @@ namespace LaunchPad.Models.DesignerDummy
             var pubIssueData = new PubIssueData();
             // pubIssueData.Folios = new List<FolioLoadViewModel>();
             var Folios = new List<FolioLoadViewModel>();
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 var folios = context.tbl_dummy_folio.Where(x => x.iss_id == iss_id).Select(fo =>
                     new FolioViewMode { folio_name = fo.folio_name,
@@ -155,7 +171,7 @@ namespace LaunchPad.Models.DesignerDummy
         }
         public static List<DummyPageViewModel> GetPagesByFolioId(int folio_id)
         {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 // var pageData = new PageData();
                 //pageData.folio_id = folio_id;
@@ -173,30 +189,30 @@ namespace LaunchPad.Models.DesignerDummy
                 return pages;
             }
         }
-        public static DummyData GetDesignDataByPageId(int page_id)
-        {
-            using (LPDataContext context = new LPDataContext())
-            {
-                var dummyData = new DummyData();
-                var PageEntity = context.tbl_dummy_page.Where(x => x.dummy_page_id == page_id).FirstOrDefault();
-                dummyData.page_id = page_id;
-                if (PageEntity != null)
-                {
-                    dummyData.PageName = PageEntity.page_name;
-                    dummyData.page_number = PageEntity.page_number.GetValueOrDefault();
-                    var placements = context.tbl_dummy_page_placement.ToList().Where(x => x.dummy_page_id == page_id).Select(pl => new DesignDummyViewModel
-                    {
-                        ad_id = pl.media_page_number_id,
-                        xStart = pl.x_position_start,
-                        yStart = pl.y_position_start,
-                        placed_ad = GetAdViewById(pl.media_page_number_id)
-                    }).ToList();
-                    dummyData.dummy = placements;
-                    //var uniquAds = placements.Select(x => x.ad_id).Distinct();
-                }
-                return dummyData;
-            }
-        }
+        //public static DummyData GetDesignDataByPageId(int page_id)
+        //{
+        //    using (ClientDataContext context = new ClientDataContext())
+        //    {
+        //        var dummyData = new DummyData();
+        //        var PageEntity = context.tbl_dummy_page.Where(x => x.dummy_page_id == page_id).FirstOrDefault();
+        //        dummyData.page_id = page_id;
+        //        if (PageEntity != null)
+        //        {
+        //            dummyData.PageName = PageEntity.page_name;
+        //            dummyData.page_number = PageEntity.page_number.GetValueOrDefault();
+        //            var placements = context.tbl_dummy_page_placement.ToList().Where(x => x.dummy_page_id == page_id).Select(pl => new DesignDummyViewModel
+        //            {
+        //                ad_id = pl.media_page_number_id,
+        //                xStart = pl.x_position_start,
+        //                yStart = pl.y_position_start,
+        //                placed_ad = GetAdViewById(pl.media_page_number_id)
+        //            }).ToList();
+        //            dummyData.dummy = placements;
+        //            //var uniquAds = placements.Select(x => x.ad_id).Distinct();
+        //        }
+        //        return dummyData;
+        //    }
+        //}
         public static bool CreatePages(DesignDummyViewModel dummy, int page_id)
         {
 
@@ -204,7 +220,7 @@ namespace LaunchPad.Models.DesignerDummy
         }
         public static bool CreateDesign(DesignDummyViewModel dummy, int page_id)
         {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 if (dummy.ad_id != 0)
                 {
@@ -246,7 +262,7 @@ namespace LaunchPad.Models.DesignerDummy
         //}
         public static List<tbl_dummy_page> CreatePages(int count, int start_page_number, int folio_id, string page_desc)
         {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 var FolioEntity = context.tbl_dummy_folio.Where(x => x.dummy_folio_id == folio_id);
                 var pages = new List<tbl_dummy_page>();
@@ -263,24 +279,24 @@ namespace LaunchPad.Models.DesignerDummy
             }
             
         }
-        public static bool UpdatePages() {
-            var pages = Unity.Work.Repository<tbl_dummy_page>().GetAll().ToList();
-            int i = 3;
-            foreach (var page in pages)
-            {
-                page.page_name = "Page";
-                page.page_number = i;
-                i++;
-                Unity.Work.Repository<tbl_dummy_page>().Update(page);
-            }
-            Unity.Work.Save();
-            return true;
+        //public static bool UpdatePages() {
+        //    var pages = Unity.Work.Repository<tbl_dummy_page>().GetAll().ToList();
+        //    int i = 3;
+        //    foreach (var page in pages)
+        //    {
+        //        page.page_name = "Page";
+        //        page.page_number = i;
+        //        i++;
+        //        Unity.Work.Repository<tbl_dummy_page>().Update(page);
+        //    }
+        //    Unity.Work.Save();
+        //    return true;
 
-        }
+        //}
 
         public static FolioLoadViewModel CreateDummyFolio(FolioViewMode folio, int pub_id, int iss_id)
         {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 var newfolio = new tbl_dummy_folio
                 {
@@ -345,7 +361,7 @@ namespace LaunchPad.Models.DesignerDummy
         }
         public static bool DeleteDummyFolio(int folio_id)
         {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 var folioObj = context.tbl_dummy_folio.Where(x => x.dummy_folio_id == folio_id).FirstOrDefault();
                 var pages = context.tbl_dummy_page.Where(x => x.dummy_folio_id == folio_id);
@@ -367,7 +383,7 @@ namespace LaunchPad.Models.DesignerDummy
             return true;
         }
         public static DummyPageViewModel CreatePageByFolio(int folio_id) {
-            using (LPDataContext context = new LPDataContext())
+            using (ClientDataContext context = new ClientDataContext())
             {
                 var maxPageCount = context.tbl_dummy_page.Where(x => x.dummy_folio_id == folio_id).Max(x => x.page_number).GetValueOrDefault();
                 var pageModel = new DummyPageViewModel { page_name = "page",page_number= (maxPageCount+1) };

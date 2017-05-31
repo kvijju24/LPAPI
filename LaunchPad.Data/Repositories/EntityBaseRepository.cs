@@ -11,18 +11,20 @@ namespace LaunchPad.Data.Repositories
     public class EntityBaseRepository<T> : IEntityBaseRepository<T>
             where T : class, new()
     {
-        private LPDataContext dataContext;
+        private ClientDataContext dataContext;
         #region Properties
-        protected IDbFactory DbFactory
+        //protected IDbFactory<ClientDataContext> DbFactory
+        protected IDbFactory<ClientDataContext> DbFactory
         {
             get;
             private set;
         }
-        protected LPDataContext DbContext
+        protected ClientDataContext DbContext
         {
             get { return dataContext ?? (dataContext = DbFactory.Init()); }
         }
-        public EntityBaseRepository(IDbFactory dbFactory)
+        //public EntityBaseRepository(IDbFactory<ClientDataContext> dbFactory)
+        public EntityBaseRepository(IDbFactory<ClientDataContext> dbFactory)
         {
             DbFactory = dbFactory;
         }

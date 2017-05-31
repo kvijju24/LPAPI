@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Appointment.cs" />
+    <Compile Include="Domain\Dummy\lu_dummy_coordinate.cs" />
     <Compile Include="Domain\Dummy\lu_dummy_page_dimension.cs" />
     <Compile Include="Domain\Dummy\tbl_dummy_folio.cs" />
     <Compile Include="Domain\Dummy\tbl_dummy_page.cs" />
@@ -75,13 +76,16 @@
     <Compile Include="Domain\lu_adsize_trim.cs" />
     <Compile Include="Domain\lu_ad_clr.cs" />
     <Compile Include="Domain\lu_ad_position.cs" />
+    <Compile Include="Domain\lu_ad_rate.cs" />
     <Compile Include="Domain\lu_ad_sect.cs" />
     <Compile Include="Domain\lu_ad_shape.cs" />
     <Compile Include="Domain\lu_brand.cs" />
+    <Compile Include="Domain\lu_client.cs" />
     <Compile Include="Domain\lu_edition.cs" />
     <Compile Include="Domain\lu_emp.cs" />
     <Compile Include="Domain\lu_iss.cs" />
     <Compile Include="Domain\lu_io_status.cs" />
+    <Compile Include="Domain\lu_login.cs" />
     <Compile Include="Domain\lu_media_group.cs" />
     <Compile Include="Domain\lu_pib.cs" />
     <Compile Include="Domain\lu_pub.cs" />

@@ -70,6 +70,8 @@ namespace LaunchPad.Entities.Domain
         public Nullable<decimal> p_dollar { get; set; }
         public Nullable<decimal> agency_discount { get; set; }
         public Nullable<int> ad_rate_id { get; set; }
+        [ForeignKey("ad_rate_id")]
+        public virtual lu_ad_rate lu_ad_rate { get; set; }
         public int bonus_yn { get; set; }
         public int proof_req { get; set; }
         public Nullable<int> assigned_to { get; set; }

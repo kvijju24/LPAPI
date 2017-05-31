@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Swashbuckle.Application;
 
 namespace LaunchPad
 {
@@ -23,6 +24,7 @@ namespace LaunchPad
             //WebApiConfig.Register(config);
             Bootstrapper.Run();
             //UnityConfig.RegisterComponents();
+            //SwaggerConfig.Register();
         }
     }
 }

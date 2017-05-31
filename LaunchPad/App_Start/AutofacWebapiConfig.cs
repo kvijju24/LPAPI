@@ -27,21 +27,40 @@ namespace LaunchPad.App_Start
         private static IContainer RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            // EF HomeCinemaContext
-            builder.RegisterType<LPDataContext>()
-                   .As<DbContext>()
-                   .InstancePerRequest();
+            //builder.RegisterType<Data.Infrastructure.IDbContext>()
+            //      .As<Data.Infrastructure.IDbContext>()
+            //      .InstancePerRequest();
+            //builder.RegisterType<LPDataContext>()
+            //       .As<DbContext>()
+            //       .InstancePerRequest();
+            //builder.RegisterType(typeof(IDbContextInfra));
+            //builder.RegisterType(typeof(DbContext));
+            //builder.RegisterType(typeof(LPDataContext));
 
-            builder.RegisterType<DbFactory>()
-                .As<IDbFactory>()
-                .InstancePerRequest();
+            builder.RegisterType<ClientDataContext>()
+                  .As<DbContext>()
+                  .InstancePerRequest();
 
-            builder.RegisterType<UnitOfWork>()
-                .As<IUnitOfWork>()
-                .InstancePerRequest();
+
+            //builder.RegisterType(typeof(ClientDataContext));
+            builder.RegisterGeneric(typeof(DbFactory<>)).As(typeof(IDbFactory<>)).InstancePerRequest();
+            builder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).InstancePerRequest();
+
+            //builder.RegisterType<DbFactory>()
+            //    .As<IDbFactory>()
+            //    .InstancePerRequest();
+
+            //builder.RegisterType<UnitOfWork>()
+            //    .As<IUnitOfWork>()
+            //    .InstancePerRequest();
+
+
             builder.RegisterGeneric(typeof(EntityBaseRepository<>))
                    .As(typeof(IEntityBaseRepository<>))
                    .InstancePerRequest();
+            //builder.RegisterGeneric(typeof(EntityBaseRepositorySecurity<>))
+            //       .As(typeof(IEntityBaseRepository<>))
+            //       .InstancePerRequest();
             //// Services
             //builder.RegisterType<EncryptionService>()
             //    .As<IEncryptionService>()

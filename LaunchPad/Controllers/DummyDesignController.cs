@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LaunchPad.Data;
 using LaunchPad.Data.Infrastructure;
 using LaunchPad.Data.Repositories;
 using LaunchPad.Entities;
@@ -12,16 +13,23 @@ using LaunchPad.Models.DesignerDummy;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using XsPDF.Pdf;
 using static LaunchPad.Models.DesignerDummy.DummyViewModel;
 
 namespace LaunchPad.Controllers
 {
-    [EnableCors(origins: "http://localhost:2500", headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization", methods: "*", SupportsCredentials = true)]
+    [Authorize]
+   // [EnableCors(origins: "https://www.metrofamilylaunchpad.com", headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/dummy")]
     public class DummyDesignController : ApiControllerBase
     {
@@ -32,9 +40,11 @@ namespace LaunchPad.Controllers
         private readonly IEntityBaseRepository<tbl_media_page_number> _mediaPageNumberRepository;
         private readonly IEntityBaseRepository<lu_adsize_media_trim> _adsizeMediaTrimRepository;
         private readonly IEntityBaseRepository<lu_iss> _issueRepository;
+        private readonly IEntityBaseRepository<lu_dummy_coordinate> _dummyCoordinatesRepository;
         public DummyDesignController(IEntityBaseRepository<tbl_dummy_page> dummyPageRepository, IEntityBaseRepository<tbl_dummy_folio> dummyFolioRepository, IEntityBaseRepository<tbl_dummy_page_placement> dummyPagePlacementRepository
             ,IEntityBaseRepository<lu_adsize_media_trim> adsizeMediaTrimRepository, IEntityBaseRepository<tbl_media_page_number> mediaPageNumberRepository, IEntityBaseRepository<lu_dummy_page_dimension> dummyPageDimentionRepository,
-             IEntityBaseRepository<lu_iss> issueRepository, IEntityBaseRepository<Error> _errorsRepository, IUnitOfWork _unitOfWork) : base(_errorsRepository, _unitOfWork)
+             IEntityBaseRepository<lu_iss> issueRepository, IEntityBaseRepository<Error> _errorsRepository, IUnitOfWork<ClientDataContext> _unitOfWork
+            ,IEntityBaseRepository<lu_dummy_coordinate> dummyCoordinatesRepository) : base(_errorsRepository, _unitOfWork)
         {
             _dummyPageRepository = dummyPageRepository;
             _dummyFolioRepository = dummyFolioRepository;
@@ -43,7 +53,10 @@ namespace LaunchPad.Controllers
             _adsizeMediaTrimRepository = adsizeMediaTrimRepository;
             _dummyPageDimentionRepository = dummyPageDimentionRepository;
             _issueRepository = issueRepository;
+            _dummyCoordinatesRepository = dummyCoordinatesRepository;
         }
+        
+
         [HttpPost]
         [Route("SaveDesign")]
         public HttpResponseMessage Add(HttpRequestMessage request, DummyData designItems)
@@ -85,50 +98,29 @@ namespace LaunchPad.Controllers
                 return response;
             });
         }
-        [Route("GetAvailableAds/{iss_id:int}")]
+        
+        [Route("TokenTest")]
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage request,int iss_id)
+        public HttpResponseMessage GetToken(HttpRequestMessage request)
         {
+            
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null; 
-                var issue = _issueRepository.GetSingle(iss_id);
-                if(issue!=null)
-                {
-                    response = request.CreateResponse(HttpStatusCode.OK, DesignDummyRepository.AllAds(issue.pub_id, issue.iss_id));
-                }
-                return response;
+                var token = HttpContext.Current.User.Identity.Name;
+                return request.CreateResponse(HttpStatusCode.OK, token);
+               
             });
         }
-        [Authorize]
-        [Route("GetAvailableAdsTest/{iss_id:int}")]
-        [HttpOptions]
-        public HttpResponseMessage Get1(HttpRequestMessage request, int iss_id)
+        
+        [Route("GetDummyCoordinates")]
+        [HttpGet]
+        public HttpResponseMessage GetCoordinates(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                var issue = _issueRepository.GetSingle(iss_id);
-                if (issue != null)
-                {
-                    response = request.CreateResponse(HttpStatusCode.OK, DesignDummyRepository.AllAds(issue.pub_id, issue.iss_id));
-                }
-                return response;
-            });
-        }
-        [Authorize]
-        [Route("GetAvailableAdsTest2/{iss_id:int}")]
-        [HttpGet]
-        public HttpResponseMessage Get2(HttpRequestMessage request, int iss_id)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                var issue = _issueRepository.GetSingle(iss_id);
-                if (issue != null)
-                {
-                    response = request.CreateResponse(HttpStatusCode.OK, DesignDummyRepository.AllAds(issue.pub_id, issue.iss_id));
-                }
+                var coordinates = _dummyCoordinatesRepository.GetAll();
+                    response = request.CreateResponse(HttpStatusCode.OK, coordinates);
                 return response;
             });
         }
@@ -162,8 +154,12 @@ namespace LaunchPad.Controllers
         }
         public AdvertisementViewMode GetAdViewById(int ad_id)
         {
+            var token = HttpContext.Current.User.Identity.Name;
+            var repo = new SecurityRepository();
+            var luClient = repo.GetClient(token);
+
             var ad = _mediaPageNumberRepository.GetAll().Where(x => x.media_page_number == ad_id).FirstOrDefault();
-            var adView = DesignDummyRepository.BuildAdViewModel(ad);
+            var adView = DesignDummyRepository.BuildAdViewModel(ad,luClient);
             var mediaTrim = _adsizeMediaTrimRepository.GetAll().ToList()
                 .Where(x => x.adsize_id == adView.adsize_id && x.pub_id == adView.pub_id && (adView.ad_shape_id == (x.lu_adsize_trim != null ? x.lu_adsize_trim.ad_shape_id.GetValueOrDefault() : 0))).FirstOrDefault();
             if (mediaTrim != null && mediaTrim.lu_adsize_trim != null)
@@ -171,9 +167,12 @@ namespace LaunchPad.Controllers
                 adView.adsize_trim_desc = mediaTrim.lu_adsize_trim.adsize_trim_desc;
                 adView.AdSizeType = DesignDummyRepository.GetAdSizeType(mediaTrim.lu_adsize_trim.adsize_trim_desc);
             }
+            if(mediaTrim.lu_adsize_trim.lu_dummy_coordinate!=null)
+                adView.coordinates = Mapper.Map<lu_dummy_coordinate, CoordinatesViewMode>(mediaTrim.lu_adsize_trim.lu_dummy_coordinate);
             return adView;
 
         }
+
         [HttpPost]
         [Route("AddFolio")]
         public HttpResponseMessage AddFolio(HttpRequestMessage request, FolioData folioData)
@@ -229,6 +228,9 @@ namespace LaunchPad.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
+                //Delete all inactive ads from pages
+                CleanPages();
+
                 var Folios = new List<FolioLoadViewModel>();
                 var currentIssue = _issueRepository.GetSingle(iss_id);
                 if (filter=="previous")
@@ -254,6 +256,15 @@ namespace LaunchPad.Controllers
                 response = request.CreateResponse(HttpStatusCode.OK, Folios);
                 return response;
             });
+        }
+        public void CleanPages()
+        {
+            var placements = _dummyPagePlacementRepository.GetAll().Where(x => x.tbl_media_page_number.status == 1);
+            foreach(var placement in placements)
+            {
+                _dummyPagePlacementRepository.Delete(placement);
+            }
+            _unitOfWork.Commit();
         }
         [HttpGet]
         [Route("LoadIssueDetail/{iss_id:int}")]

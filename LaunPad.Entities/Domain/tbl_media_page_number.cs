@@ -14,6 +14,8 @@ namespace LaunchPad.Entities.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int media_page_number { get; set; }
         public Nullable<int> io_detail_id { get; set; }
+        [ForeignKey("io_detail_id")]
+        public virtual tbl_io_detail tbl_io_detail { get; set; }
         public Nullable<int> pub_id { get; set; }
         public virtual lu_pub lu_pub { get; set; }
         public Nullable<int> iss_id { get; set; }

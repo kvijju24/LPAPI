@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaunchPad.Entities.Domain.Dummy;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,5 +26,8 @@ namespace LaunchPad.Entities.Domain
         public string gutter { get; set; }
         public Nullable<int> ad_shape_id { get; set; }
         public virtual lu_ad_shape lu_ad_shape { get; set; }
+        public Nullable<int> dummy_coordinate_id { get; set; }
+        [ForeignKey("dummy_coordinate_id")]
+        public virtual lu_dummy_coordinate lu_dummy_coordinate { get; set; }
     }
 }

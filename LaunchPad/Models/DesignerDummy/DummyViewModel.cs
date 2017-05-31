@@ -56,23 +56,15 @@ namespace LaunchPad.Models.DesignerDummy
             public AdvertisementViewMode placed_ad { get; set; }
             public tbl_dummy_page_placement ToEntity()
             {
-                if (true)
-                {
+
                     return new tbl_dummy_page_placement
                     {
                         x_position_start = xStart,
                         y_position_start = yStart,
                         media_page_number_id = ad_id
                     };
-                }
-                else
-                {
-                    var designEntity = Unity.Work.Repository<tbl_dummy_page_placement>().GetById(dummy_page_placement_id);
-                    designEntity.x_position_start = xStart;
-                    designEntity.y_position_start = yStart;
-                    designEntity.media_page_number_id = ad_id;
-                    return designEntity;
-                }
+
+               
             }
         }
         public class DummyPageViewModel
@@ -145,7 +137,18 @@ namespace LaunchPad.Models.DesignerDummy
             public string adsize_trim_desc { get; set; }
             public int AdSizeType { get; set; }
             public string spec_file { get; set; }
+            public CoordinatesViewMode coordinates { get; set; }
+            public bool status { get; set; }
+            public string image_path { get; set; }
 
+        }
+        public class CoordinatesViewMode
+        {
+            public Nullable<int> height { get; set; }
+            public Nullable<int> width { get; set; }
+            public string color { get; set; }
+            public string icon_image { get; set; }
+            public Nullable<int> dummy_type { get; set; }
         }
     }
 }
